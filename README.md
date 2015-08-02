@@ -5,7 +5,7 @@ http://base.network
 Install server node
 -------------------
 ### Linux
-```
+``` shell
 git clone https://github.com/basenetwork/base.server-node
 
 # install sqlite3 module from sources
@@ -17,7 +17,7 @@ base.server-node/start.js  >/var/log/base.network.log &
 
 
 ### Usage  
-```
+``` txt
 base.server-node/start.js [options]
   OPTIONS:
     --host=<ip_addr> - IPv4 or IPv6 address. default: chose from network interfaces
