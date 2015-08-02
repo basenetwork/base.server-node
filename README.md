@@ -14,7 +14,7 @@ git clone https://github.com/basenetwork/base.server-node
 cd base.server-node && npm install sqlite3 --build-from-source && cd ..
 
 # start server
-nohup base.server-node/start.js  >/var/log/base.network.log &
+nohup base.server-node/base.node.js  >/var/log/base.node.log &
 ```
 
 If sqlite3 module won’t build you’re probably missing one of the python or gcc dependencies, 
@@ -25,7 +25,7 @@ make before retrying the build from source.
 
 ### Usage  
 ``` txt
-base.server-node/start.js [options]
+base.server-node/base.node.js [options]
   OPTIONS:
     --host=<ip_addr> - IPv4 or IPv6 address. default: chose from network interfaces
     --port=<num>     - Port. default: 8080
