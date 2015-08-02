@@ -4,6 +4,8 @@ http://base.network
 
 Install server node
 -------------------
+Server-node work on [Node.js](https://nodejs.org/)-technology. [Setup Node.js](http://howtonode.org/how-to-install-nodejs) on your server before installing.
+
 ### Linux
 ``` shell
 git clone https://github.com/basenetwork/base.server-node
@@ -12,8 +14,13 @@ git clone https://github.com/basenetwork/base.server-node
 cd base.server-node && npm install sqlite3 --build-from-source && cd ..
 
 # start server
-base.server-node/start.js  >/var/log/base.network.log &
+nohup base.server-node/start.js  >/var/log/base.network.log &
 ```
+
+If sqlite3 module won’t build you’re probably missing one of the python or gcc dependencies, 
+on linux try running `sudo npm install -g node-gyp`, 
+`sudo apt-get install -y build-essential python-software-properties python g++`
+make before retrying the build from source.
 
 
 ### Usage  
