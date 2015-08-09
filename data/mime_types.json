@@ -54,7 +54,7 @@
   "iso":     "application/octet-stream",
 
   "mid":  "audio/midi",
-  "mp3":  "audio/mpeg",
+  "mp3":  "audio/mp3",
   "ra":   "audio/x-realaudio",
 
   "mp4":  "video/mp4",
