@@ -98,8 +98,8 @@ tests.start({
         equal(true, cert.verify(data, sign3));
         equal(true, cert.verify(data, sign1));
         equal(false, cert.verify(data + ".", sign1));
-        equal(false, cert.verify(data + ".", sign2));
-        equal(false, cert.verify(data + ".", sign3));
+        equal(false, cert.verify(data + "\n", sign2));
+        equal(false, cert.verify(data + "\x00", sign3));
     },
 
     TestCertificate_isRegistrar: function() {
