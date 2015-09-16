@@ -4,8 +4,8 @@ var Certificate = require("../lib/Certificate.js");
 var tests  = require("./tests.js");
 var equal  = tests.equal;
 
-function newLocalCert() {
-    return Certificate._getByPrvHex(Certificate._generatePrivateKey());
+function getMyLocalCertificate() {
+    return Certificate._getByPrvHex("0982c0046d9890cb44825871fbbf41dc63af0724e8c48111db92e9de6cdd271c");
 }
 
 tests.start({
@@ -75,26 +75,31 @@ tests.start({
     },
 
     TestCertificate_sign: function() {
-        var cert = newLocalCert();
+        var cert = getMyLocalCertificate();
         var data = "ABC 0123 ёпрст";
 
         var sign1 = cert.sign(data).toString("hex");
         var sign2 = cert.sign(data).toString("hex");
 
-        equal(128, sign1.length);
-        equal(128, sign2.length);
-        equal(true, sign1 != sign2);
+        equal(true, /^[0-9a-f]{128}/.test(sign1));
+        equal(true, /^[0-9a-f]{128}/.test(sign2));
         equal(true, sign1 != sign2);
     },
 
     TestCertificate_verify: function() {
-        var cert = newLocalCert();
+        var cert = getMyLocalCertificate();
         var data = "ABC 0123 ёпрст";
-        var sign = cert.sign(data).toString("hex");
+        var sign1 = cert.sign(data).toString("hex");
+        var sign2 = cert.sign(data).toString("hex");
+        var sign3 = "ffc36705dd4e07322523181c6372d0022b8deb6a4e5517bf32e335c505b583a49e23acef1af9cd1715c727b1f9375f5cbb17ca9868fc00e2946f8663e6fffdc7";
 
-        equal(true, cert.verify(data, sign));
-        equal(true, cert.verify(data, sign));
-        equal(false, cert.verify(data + ".", sign));
+        equal(true, cert.verify(data, sign1));
+        equal(true, cert.verify(data, sign2));
+        equal(true, cert.verify(data, sign3));
+        equal(true, cert.verify(data, sign1));
+        equal(false, cert.verify(data + ".", sign1));
+        equal(false, cert.verify(data + ".", sign2));
+        equal(false, cert.verify(data + ".", sign3));
     },
 
     TestCertificate_isRegistrar: function() {
