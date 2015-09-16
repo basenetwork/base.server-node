@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var Certificate = require("../lib/Certificate.js");
 var tests  = require("./tests.js");
 var equal  = tests.equal;
