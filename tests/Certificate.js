@@ -86,6 +86,15 @@ tests.start({
         equal(true, sign1 != sign2);
     },
 
+    TestCertificate_signFail_forPublicCertificate: function() {
+        var pubCert = Certificate.parsePublic("AMPs7bmeIn7QUZi/Xt+Max/n7YsNWCzpcHR2cbieecB6aU3lrtitX39D2ltPaEhm+dyEGtYNUBeBkU2GrhV1kUGWAABSdRXoFs2ttEckWfs82HVAddJF0cNEupxNukQRqara/918TjAjC61zJREGQoLmNrmrpPqDbZyoNY+C0lIp");
+        var data = "ABC 0123 ёпрст";
+
+        var sign = pubCert.sign(data);
+
+        equal(false, sign);
+    },
+
     TestCertificate_verify: function() {
         var cert = getMyLocalCertificate();
         var data = "ABC 0123 ёпрст";

@@ -1,32 +1,52 @@
-var countTests = 0;
+var countPassed;
+var countFailed;
+var countAssert;
+var countTests;
 
 module.exports = {
     start: function(tests) {
-        console.log("-------------------------------------------------------------");
-        console.log("Testing started at " + new Date());
-        var passed = 0, failed = 0;
+        countPassed = 0;
+        countFailed = 0;
+        countAssert = 0;
+        countTests = 0;
+
+        console.log(
+            "-------------------------------------------------------------\n",
+            "Testing started at " + new Date()
+        );
+
         for(var name in tests) {
+            if(name.substr(0, 4) != "Test") continue;
             var fn = tests[name];
             if(typeof fn !== "function") continue;
-            try
-            {
-                process.stdout.write(".");
+            countTests++;
+            try {
                 fn.call(tests);
-                passed++;
             } catch(e) {
-                failed++;
+                countFailed++;
                 console.log("\nFAIL. "+ name, "\nError:\n", e, "\n\n");
             }
         }
-        console.log("\n\n"+(failed? "FAIL" : "OK")+ ":", passed, "passed,", failed, "failed\n");
+        console.log(
+            "\n\n",
+            (countFailed? "FAIL" : "OK")+ ".",
+            countTests, "tests;",
+            countAssert, "assert (",
+            countPassed, "passed /",
+            countFailed, "failed )",
+            "\n"
+        );
     },
 
     equal: function(expected, value) {
+        countAssert++;
+        process.stdout.write(".");
         expected = JSON.stringify(expected);
         value = JSON.stringify(value);
         if(expected !== value) {
             throw "\tExpected: "+expected + "\n\tActual:   "+value;
         }
+        countPassed++;
         return this;
     }
 };
