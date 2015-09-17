@@ -38,7 +38,7 @@ module.exports = {
         );
     },
 
-    equal: function(expected, value) {
+    equal: function(value, expected) {
         countAssert++;
         process.stdout.write(".");
         expected = JSON.stringify(expected);
